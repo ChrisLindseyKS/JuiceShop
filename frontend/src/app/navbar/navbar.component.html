@@ -117,14 +117,17 @@
       <mat-divider></mat-divider>
       <div class="language-options-container">
         <mat-radio-button (click)="changeLanguage(language.key)" *ngFor="let language of filteredLanguages"
-          [value]="language" class="mat-menu-item language-option" style="width: 240px;"
+          [value]="language" class="mat-menu-item language-option"
           [checked]="selectedLanguage === language" aria-label="{{language.lang}}">
-          <div class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
-            <span *ngFor="let icon of language.icons" [class]="'fi fi-' + icon"></span>
-            {{language?.lang}}
+          <div class="language-item-content">
+            <div class="language-label">
+              <span *ngFor="let icon of language.icons" [class]="'fi fi-' + icon"></span>
+              {{language?.lang}}
+            </div>
+            <div class="language-gauge">
+              <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
+            </div>
           </div>
-          <i
-            [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
         </mat-radio-button>
       </div>
     </mat-menu>
