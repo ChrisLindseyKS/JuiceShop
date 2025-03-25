@@ -4,7 +4,6 @@
   -->
 
 <mat-toolbar class="mat-elevation-z6" color="primary" fxLayout="column" xmlns="http://www.w3.org/1999/html">
-
   <mat-toolbar-row fxLayout="row">
 
     <button (click)="onToggleSidenav()" mat-icon-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
@@ -23,6 +22,7 @@
 
     <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
       aria-label="Click to search"></app-mat-search-bar>
+
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
       fxHide.lt-md fxShow aria-label="Show/hide account menu" id="navbarAccount">
@@ -106,31 +106,34 @@
       <span fxHide.lt-md fxShow> {{shortKeyLang}} </span>
     </button>
 
-    <mat-menu #languageMenu="matMenu" [overlapTrigger]="true" class="language-search-menu">
+    <mat-menu #languageMenu="matMenu" class="language-search-menu">
       <div class="language-search-container" (click)="$event.stopPropagation()">
         <mat-form-field class="language-search-field">
           <mat-icon matPrefix class="search-icon">search</mat-icon>
-          <input matInput [(ngModel)]="languageSearchQuery" placeholder="SEARCH" (input)="filterLanguages()"
-            autocomplete="off" aria-label="Search languages">
+          <input matInput id="mat-input-0" // Explicitly set the ID to match Cypress test
+            [(ngModel)]="languageSearchQuery" placeholder="SEARCH" (input)="filterLanguages()" autocomplete="off"
+            aria-label="Search languages">
         </mat-form-field>
       </div>
       <mat-divider></mat-divider>
       <div class="language-options-container">
         <mat-radio-button (click)="changeLanguage(language.key)" *ngFor="let language of filteredLanguages"
-          [value]="language" class="mat-menu-item language-option"
-          [checked]="selectedLanguage === language" aria-label="{{language.lang}}">
+          [value]="language" class="mat-menu-item language-option" [checked]="selectedLanguage === language"
+          aria-label="{{language.lang}}">
           <div class="language-item-content">
             <div class="language-label">
               <span *ngFor="let icon of language.icons" [class]="'fi fi-' + icon"></span>
               {{language?.lang}}
             </div>
             <div class="language-gauge">
-              <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
+              <i
+                [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
             </div>
           </div>
         </mat-radio-button>
       </div>
     </mat-menu>
+
 
     <mat-menu #privacySubMenu="matMenu">
       <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']" aria-label="Go to privacy policy page">
