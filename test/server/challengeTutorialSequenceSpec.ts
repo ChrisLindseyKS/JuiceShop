@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import chai = require('chai')
+import chai from 'chai'
+import fs from 'fs'
 import path from 'path'
 import { promisify } from 'util'
-import sinonChai = require('sinon-chai')
+import { safeLoad } from 'js-yaml'
+import sinonChai from 'sinon-chai'
 const expect = chai.expect
 chai.use(sinonChai)
 
-const fs = require('fs')
-const { safeLoad } = require('js-yaml')
 const readFile = promisify(fs.readFile)
 
 const loadYamlFile = async (filename: string) => {
